@@ -33,6 +33,7 @@
         "react/react-in-jsx-scope": "off",
         "react/prop-types": "off",
         "simple-import-sort/imports": "error",
-        "unicorn/filename-case": "off"
+        "unicorn/filename-case": "off",
+        "require-jsdoc": "off"
     }
 }
