@@ -34,6 +34,7 @@
         "react/prop-types": "off",
         "simple-import-sort/imports": "error",
         "unicorn/filename-case": "off",
-        "require-jsdoc": "off"
+        "require-jsdoc": "off",
+        "unicorn/prevent-abbreviations": "warn"
     }
 }

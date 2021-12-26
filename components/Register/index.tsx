@@ -5,17 +5,11 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
-const onSubmit = (values: any) => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, undefined, 2));
-      resolve();
-    }, 3000);
-  });
-};
-
+import { errorMessage } from "../../constants/errors";
 const Register = () => {
   const {
     handleSubmit,
@@ -23,15 +17,37 @@ const Register = () => {
     formState: { errors, isSubmitting },
   } = useForm();
 
+  const router = useRouter();
+
+  const onSubmit = async (values: any) => {
+    try {
+      await axios.post("/api/register", values);
+      router.replace("/profile");
+    } catch {
+      return;
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={errors.name}>
-        <FormLabel htmlFor="name">Email</FormLabel>
+        <FormLabel htmlFor="name">Username</FormLabel>
+        <Input
+          id="username"
+          placeholder="username"
+          {...register("username", {
+            required: errorMessage,
+          })}
+        />
+        <FormErrorMessage>
+          {errors.name && errors.name.message}
+        </FormErrorMessage>
+        <FormLabel htmlFor="email">Email</FormLabel>
         <Input
           id="email"
           placeholder="email"
           {...register("email", {
-            required: "This is required",
+            required: errorMessage,
           })}
         />
         <FormErrorMessage>
@@ -40,9 +56,10 @@ const Register = () => {
         <FormLabel htmlFor="password">Password</FormLabel>
         <Input
           id="password"
+          type={"password"}
           placeholder="password"
           {...register("password", {
-            required: "This is required",
+            required: errorMessage,
           })}
         />
         <FormErrorMessage>
