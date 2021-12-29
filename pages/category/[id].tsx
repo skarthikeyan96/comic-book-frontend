@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 
 import Card from "../../components/Card";
 import Layout from "../../components/Layout";
@@ -8,17 +8,20 @@ const Category = (properties: any) => {
   return (
     <Layout>
       <Box p={4}>
-        {properties.filteredData.attributes.products.data.map((data: any) => {
-          return (
-            <Box key={data.id}>
-              <Card
-                name={data.attributes.name}
-                price={data.attributes.price}
-                image={data.attributes.image.data.attributes.url}
-              />
-            </Box>
-          );
-        })}
+        <HStack spacing={4}>
+          {properties.filteredData.attributes.products.data.map((data: any) => {
+            return (
+              <Box key={data.id}>
+                <Card
+                  name={data.attributes.name}
+                  price={data.attributes.price}
+                  image={data.attributes.image.data.attributes.url}
+                  description={data.attributes.description}
+                />
+              </Box>
+            );
+          })}
+        </HStack>
       </Box>
     </Layout>
   );

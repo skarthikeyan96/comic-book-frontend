@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -15,17 +15,20 @@ const Home: NextPage = (properties: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box p={4}>
-        {properties.data.map((data: any) => {
-          return (
-            <Box key={data.id}>
-              <Card
-                name={data.attributes.name}
-                price={data.attributes.price}
-                image={data.attributes.image.data.attributes.url}
-              />
-            </Box>
-          );
-        })}
+        <HStack spacing={4}>
+          {properties.data.map((data: any) => {
+            return (
+              <Box key={data.id}>
+                <Card
+                  name={data.attributes.name}
+                  price={data.attributes.price}
+                  image={data.attributes.image.data.attributes.url}
+                  description={data.attributes.description}
+                />
+              </Box>
+            );
+          })}
+        </HStack>
       </Box>
     </Layout>
   );

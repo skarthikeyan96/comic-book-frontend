@@ -1,7 +1,6 @@
 import {
   Box,
   Center,
-  Heading,
   Image,
   Stack,
   Text,
@@ -57,9 +56,6 @@ export default function ProductSimple(properties: any) {
           <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
             {properties.name}
           </Text>
-          <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
-            Nice Chair, pink
-          </Heading>
           <Stack direction={"row"} align={"center"}>
             <Text fontWeight={800} fontSize={"xl"}>
               {properties.price}
