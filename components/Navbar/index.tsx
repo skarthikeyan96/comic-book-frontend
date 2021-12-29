@@ -73,15 +73,12 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href={"#"}
-          >
-            Sign In
-          </Button>
+          <NextLink href="/login">
+            <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"}>
+              Sign In
+            </Button>
+          </NextLink>
+
           <NextLink href="/register">
             <Button
               display={{ base: "none", md: "inline-flex" }}
