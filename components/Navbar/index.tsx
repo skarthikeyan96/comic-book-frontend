@@ -22,6 +22,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -73,6 +74,13 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
+          <IconButton
+            variant="outline"
+            colorScheme="teal"
+            aria-label="Add to cart"
+            fontSize="20px"
+            icon={<AiOutlineShoppingCart />}
+          />
           <NextLink href="/login">
             <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"}>
               Sign In
