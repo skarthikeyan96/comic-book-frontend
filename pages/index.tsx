@@ -37,7 +37,7 @@ export const getServerSideProps = async (context: any) => {
     populate: ["image"],
   };
   const data = await strapiClient.fetchData("/products", parameters);
- 
+
   return {
     props: {
       data,
