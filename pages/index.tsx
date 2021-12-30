@@ -20,6 +20,7 @@ const Home: NextPage = (properties: any) => {
             return (
               <Box key={data.id}>
                 <Card
+                  id={data.id}
                   name={data.attributes.name}
                   price={data.attributes.price}
                   image={data.attributes.image.data.attributes.url}
