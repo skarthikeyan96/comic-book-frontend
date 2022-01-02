@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Image,
   Stack,
@@ -8,22 +9,26 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
+import { initateCheckout } from "../../constants/stripefile";
+
 export default function ProductSimple(properties: any) {
   const url = `/product/${properties.id}`;
+  const price = Number.parseInt(properties.price) * 70;
+
   return (
-    <NextLink href={url}>
-      <Center py={12}>
-        <Box
-          role={"group"}
-          p={6}
-          maxW={"330px"}
-          w={"full"}
-          bg={useColorModeValue("white", "gray.800")}
-          boxShadow={"2xl"}
-          rounded={"lg"}
-          pos={"relative"}
-          zIndex={1}
-        >
+    <Center py={12}>
+      <Box
+        role={"group"}
+        p={6}
+        maxW={"330px"}
+        w={"full"}
+        bg={useColorModeValue("white", "gray.800")}
+        boxShadow={"2xl"}
+        rounded={"lg"}
+        pos={"relative"}
+        zIndex={1}
+      >
+        <NextLink href={url}>
           <Box
             rounded={"lg"}
             mt={-12}
@@ -55,22 +60,33 @@ export default function ProductSimple(properties: any) {
               src={properties.image}
             />
           </Box>
-          <Stack pt={10} align={"center"}>
-            <Text
-              color={"gray.500"}
-              fontSize={"sm"}
-              textTransform={"uppercase"}
-            >
-              {properties.name}
+        </NextLink>
+        <Stack pt={10} align={"left"}>
+          <Text color={"gray.500"} fontSize={"sm"} textTransform={"uppercase"}>
+            {properties.name}
+          </Text>
+          <Stack direction={"row"} align={"left"}>
+            <Text fontWeight={800} fontSize={"xl"}>
+              ₹ {price}
             </Text>
-            <Stack direction={"row"} align={"center"}>
-              <Text fontWeight={800} fontSize={"xl"}>
-                {properties.price}
-              </Text>
-            </Stack>
           </Stack>
-        </Box>
-      </Center>
-    </NextLink>
+          <Button
+            display={{ base: "none", md: "inline-flex" }}
+            fontSize={"sm"}
+            fontWeight={600}
+            color={"white"}
+            bg={"green.400"}
+            _hover={{
+              bg: "green.300",
+            }}
+            onClick={() =>
+              initateCheckout(properties.name, properties.image, price)
+            }
+          >
+            Buy Now
+          </Button>
+        </Stack>
+      </Box>
+    </Center>
   );
 }
