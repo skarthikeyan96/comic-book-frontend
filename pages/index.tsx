@@ -25,6 +25,7 @@ const Home: NextPage = (properties: any) => {
                   price={data.attributes.price}
                   image={data.attributes.image.data.attributes.url}
                   description={data.attributes.description}
+                  {...properties}
                 />
               </Box>
             );
