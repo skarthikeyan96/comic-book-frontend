@@ -20,6 +20,6 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
 
     res.status(200).end();
   } catch (error: any) {
-    res.status(400).send(error.response.data.message[0].messages[0]);
+    res.status(400).send(error);
   }
 };

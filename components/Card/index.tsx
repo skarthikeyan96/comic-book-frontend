@@ -8,13 +8,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { useDispatch } from "react-redux";
 
-import { initateCheckout } from "../../constants/stripefile";
+import { addToCart } from "../../redux/cart.slice";
 
 export default function ProductSimple(properties: any) {
   const url = `/product/${properties.id}`;
   const price = Number.parseInt(properties.price) * 70;
-
+  const dispatch = useDispatch();
   return (
     <Center py={12}>
       <Box
@@ -79,9 +80,7 @@ export default function ProductSimple(properties: any) {
             _hover={{
               bg: "green.300",
             }}
-            onClick={() =>
-              initateCheckout(properties.name, properties.image, price)
-            }
+            onClick={() => dispatch(addToCart(properties))}
           >
             Buy Now
           </Button>

@@ -10,7 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 // };
 
 const stripePromise = loadStripe(`${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`)
-export const initateCheckout = async (productName: string, image: string, price: number) => {
+export const initateCheckout = async (cart: any) => {
 
     // Create a Checkout Session.
     const {sessionId} = await fetch(
@@ -20,14 +20,9 @@ export const initateCheckout = async (productName: string, image: string, price:
         headers: {
           "content-type" : "application/json"
         },
-        body: JSON.stringify({quantity: 1, productName, image, price})
+        body: JSON.stringify(cart)
       },
     ).then(res => res.json());
-  
-    // if ((checkoutSession as any).statusCode === 500) {
-    //   console.error((checkoutSession as any).message);
-    //   return;
-    // }
   
     // Redirect to Checkout.
     const stripe = await stripePromise;
@@ -42,18 +37,3 @@ export const initateCheckout = async (productName: string, image: string, price:
     // using `error.message`.
     console.warn(error.message);
   };
-
-
-// const stripe = require('stripe')(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
-// export const initateCheckout = async() => {
-//    const response = await stripe.checkout.sessions.create({
-//         success_url: `${window.location.origin}?session_id={CHECKOUT_SESSION_ID}`,
-//         cancel_url: `${window.location.origin}`,
-//         line_items: [
-//           {price: 'price_H5ggYwtDq4fbrJ', quantity: 2},
-//         ],
-//         mode: 'payment',
-//       });
-//       console.log(response)
-// }

@@ -74,13 +74,17 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <IconButton
-            variant="outline"
-            colorScheme="teal"
-            aria-label="Add to cart"
-            fontSize="20px"
-            icon={<AiOutlineShoppingCart />}
-          />
+          <NextLink href="/cart">
+            <Box>
+              <IconButton
+                variant="outline"
+                colorScheme="teal"
+                aria-label="Add to cart"
+                fontSize="20px"
+                icon={<AiOutlineShoppingCart />}
+              />
+            </Box>
+          </NextLink>
           <NextLink href="/login">
             <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"}>
               Sign In
