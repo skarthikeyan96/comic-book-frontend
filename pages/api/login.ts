@@ -18,7 +18,7 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
       path: "/",
     });
 
-    res.status(200).end();
+    res.status(200).send(identifier);
   } catch (error: any) {
     res.status(400).send(error);
   }

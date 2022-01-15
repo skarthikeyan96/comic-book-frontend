@@ -1,8 +1,11 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import nookies from "nookies";
+import React from "react";
+import { useDispatch } from "react-redux";
 
 import Layout from "../components/Layout";
+import { login, logout } from "../redux/user.slice";
 
 const Profile = (properties: { user: { email: any; username: any } }) => {
   const router = useRouter();
@@ -10,15 +13,23 @@ const Profile = (properties: { user: { email: any; username: any } }) => {
     user: { email, username },
   } = properties;
 
-  const logout = async () => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    const { user } = properties;
+    dispatch(login({ ...user }));
+    return () => {};
+  }, []);
+
+  const logoutUser = async () => {
     await axios.get("/api/logout");
+    dispatch(logout({}));
     router.push("/");
   };
   return (
     <Layout>
       <div>Username: {username}</div>
       <div>Email: {email}</div>
-      <button onClick={logout}>Logout</button>
+      <button onClick={logoutUser}>Logout</button>
     </Layout>
   );
 };

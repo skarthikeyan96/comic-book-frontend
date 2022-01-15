@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { login } from "../../redux/user.slice";
 
 const LoginComponent = () => {
   const router = useRouter();
@@ -9,11 +12,16 @@ const LoginComponent = () => {
     password: "",
   });
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post("/api/login", { ...userData });
-      router.push("/profile");
+      const response = await axios.post("/api/login", { ...userData });
+      if (response.status === 200) {
+        dispatch(login({}));
+        router.push("/profile");
+      }
     } catch (error: any) {
       return error;
     }
