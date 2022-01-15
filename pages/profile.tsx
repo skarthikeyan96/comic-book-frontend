@@ -39,7 +39,7 @@ export const getServerSideProps = async (context: any) => {
   let user;
 
   if (cookies?.jwt) {
-    const { data } = await axios.get("http://localhost:1337/api/users/me", {
+    const { data } = await axios.get(`${process.env.STRAPI_API_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${cookies.jwt}`,
       },
