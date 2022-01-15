@@ -1,8 +1,9 @@
+import { withSentry } from "@sentry/nextjs";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 import { setCookie } from "nookies";
 
-export default async (request: NextApiRequest, res: NextApiResponse) => {
+const handler = async (request: NextApiRequest, res: NextApiResponse) => {
   const { password, identifier } = request.body;
 
   try {
@@ -26,3 +27,5 @@ export default async (request: NextApiRequest, res: NextApiResponse) => {
     res.status(400).send(error);
   }
 };
+
+export default withSentry(handler);
