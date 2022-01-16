@@ -9,19 +9,22 @@ const Category = (properties: any) => {
     <Layout>
       <Box p={4}>
         <HStack spacing={4}>
-          {properties.filteredData.attributes.products.data.map((data: any) => {
-            return (
-              <Box key={data.id}>
-                <Card
-                  id={data.id}
-                  name={data.attributes.name}
-                  price={data.attributes.price}
-                  image={data.attributes.image.data.attributes.url}
-                  description={data.attributes.description}
-                />
-              </Box>
-            );
-          })}
+          {properties.filteredData &&
+            properties.filteredData.attributes.products.data.map(
+              (data: any) => {
+                return (
+                  <Box key={data.id}>
+                    <Card
+                      id={data.id}
+                      name={data.attributes.name}
+                      price={data.attributes.price}
+                      image={data.attributes.image.data.attributes.url}
+                      description={data.attributes.description}
+                    />
+                  </Box>
+                );
+              }
+            )}
         </HStack>
       </Box>
     </Layout>
