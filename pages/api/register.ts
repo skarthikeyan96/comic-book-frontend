@@ -8,7 +8,7 @@ const register = async (request: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const data = await axios.post(
-      `${process.env.BASE_URL}/api/auth/local/register`,
+      `${process.env.BASE_URL}api/auth/local/register`,
       {
         username,
         email,
