@@ -82,7 +82,7 @@ export default function ProductSimple(properties: any) {
             }}
             onClick={() => dispatch(addToCart(properties))}
           >
-            Buy Now
+            Add to Cart
           </Button>
         </Stack>
       </Box>
