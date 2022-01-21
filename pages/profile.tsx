@@ -1,3 +1,5 @@
+import { Box, Button } from "@chakra-ui/react";
+import { Table, TableCaption, Tbody, Td, Tr } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import nookies from "nookies";
@@ -27,9 +29,36 @@ const Profile = (properties: { user: { email: any; username: any } }) => {
   };
   return (
     <Layout>
-      <div>Username: {username}</div>
-      <div>Email: {email}</div>
-      <button onClick={logoutUser}>Logout</button>
+      <Box p="4">
+        <Table variant="simple">
+          <TableCaption>Profile</TableCaption>
+
+          <Tbody>
+            <Tr>
+              <Td>Username</Td>
+              <Td>{username}</Td>
+            </Tr>
+            <Tr>
+              <Td>Email</Td>
+              <Td>{email}</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+        <Box p={4}>
+          <Button
+            color={"white"}
+            bg={"green.400"}
+            _hover={{
+              bg: "green.300",
+            }}
+            mt={6}
+            onClick={() => logoutUser()}
+          >
+            {" "}
+            Logout{" "}
+          </Button>
+        </Box>
+      </Box>
     </Layout>
   );
 };
