@@ -33,7 +33,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint '*/**/*.{ts,tsx}' --fix"
+      "yarn lint '*/**/*.{ts,tsx}' --fix"
     ]
   },
   "devDependencies": {

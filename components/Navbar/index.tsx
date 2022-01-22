@@ -38,6 +38,8 @@ export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   const user = useSelector((state: any) => state.user);
+  const cart = useSelector((state: any) => state.cart);
+  const cartLength = cart.length === 0 ? 0 : cart.length;
   const dispatch = useDispatch();
 
   const logoutUser = async () => {
@@ -81,8 +83,6 @@ export default function WithSubnavigation() {
               color={useColorModeValue("gray.800", "white")}
               variant={"link"}
               as="a"
-              cursor={"pointer"}
-              textDecoration="none"
             >
               Comic ⚡️ Center
             </Button>
@@ -99,7 +99,7 @@ export default function WithSubnavigation() {
           spacing={6}
         >
           <NextLink href="/cart">
-            <Box>
+            <Box as="span" position="relative" display="inline-block">
               <IconButton
                 variant="outline"
                 colorScheme="teal"
@@ -107,6 +107,23 @@ export default function WithSubnavigation() {
                 fontSize="20px"
                 icon={<AiOutlineShoppingCart />}
               />
+              <Box
+                as="span"
+                position="absolute"
+                top="-1px"
+                right="-1px"
+                px={2}
+                py={1}
+                fontSize="xs"
+                fontWeight="bold"
+                lineHeight="none"
+                color="red.100"
+                transform="translate(50%,-50%)"
+                bg="red.600"
+                rounded="full"
+              >
+                {cartLength}
+              </Box>
             </Box>
           </NextLink>
           {!user.isAuthenticated && (
@@ -157,7 +174,7 @@ export default function WithSubnavigation() {
                     icon={<FaRegUserCircle />}
                   />
                 </MenuButton>
-                <MenuList>
+                <MenuList zIndex="99">
                   <MenuItem>
                     <NextLink href="/profile"> Profile </NextLink>
                   </MenuItem>
