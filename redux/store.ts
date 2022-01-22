@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { loadState, saveState } from "../constants/localstorage";
 import { cartReducer } from "./cart.slice";
 import { UserReducer } from "./user.slice";
 
@@ -7,8 +8,18 @@ const reducer = {
   user: UserReducer,
 };
 
+const persistedState:any = loadState();
+
+
 const store = configureStore({
   reducer,
+  preloadedState: persistedState
+});
+
+store.subscribe(() => {
+  saveState({
+    cart: store.getState().cart,
+  });
 });
 
 export default store;

@@ -16,6 +16,10 @@ export default function ProductSimple(properties: any) {
   const url = `/product/${properties.id}`;
   const price = Number.parseInt(properties.price) * 70;
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(addToCart(properties));
+  };
   return (
     <Center py={12}>
       <Box
@@ -80,7 +84,7 @@ export default function ProductSimple(properties: any) {
             _hover={{
               bg: "green.300",
             }}
-            onClick={() => dispatch(addToCart(properties))}
+            onClick={handleClick}
           >
             Add to Cart
           </Button>
