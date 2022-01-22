@@ -19,6 +19,7 @@ const store = configureStore({
 store.subscribe(() => {
   saveState({
     cart: store.getState().cart,
+    user: store.getState().user
   });
 });
 
