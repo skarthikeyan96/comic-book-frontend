@@ -30,7 +30,7 @@ const LoginComponent = () => {
       const response = await axios.post("/api/login", { ...userData });
       if (response.status === 200) {
         dispatch(login({}));
-        router.push("/profile");
+        router.push("/");
       }
     } catch (error: any) {
       return error;

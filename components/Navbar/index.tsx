@@ -12,6 +12,10 @@ import {
   Icon,
   IconButton,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -21,11 +25,26 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import axios from "axios";
 import NextLink from "next/link";
+import router from "next/router";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegUserCircle } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout } from "../../redux/user.slice";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
+
+  const user = useSelector((state: any) => state.user);
+  const dispatch = useDispatch();
+
+  const logoutUser = async () => {
+    await axios.get("/api/logout");
+    dispatch(logout({}));
+    router.push("/");
+  };
 
   return (
     <Box>
@@ -55,14 +74,19 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
-            color={useColorModeValue("gray.800", "white")}
-          >
-            Comic ⚡️ Center
-          </Text>
-
+          <NextLink href="/">
+            <Button
+              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+              fontFamily={"heading"}
+              color={useColorModeValue("gray.800", "white")}
+              variant={"link"}
+              as="a"
+              cursor={"pointer"}
+              textDecoration="none"
+            >
+              Comic ⚡️ Center
+            </Button>
+          </NextLink>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -85,26 +109,63 @@ export default function WithSubnavigation() {
               />
             </Box>
           </NextLink>
-          <NextLink href="/login">
-            <Button as={"a"} fontSize={"sm"} fontWeight={400} variant={"link"}>
-              Sign In
-            </Button>
-          </NextLink>
+          {!user.isAuthenticated && (
+            <>
+              {" "}
+              <NextLink href="/login">
+                <Button
+                  as={"a"}
+                  fontSize={"sm"}
+                  fontWeight={400}
+                  variant={"link"}
+                >
+                  Sign In
+                </Button>
+              </NextLink>
+              <NextLink href="/register">
+                <Button
+                  display={{ base: "none", md: "inline-flex" }}
+                  fontSize={"sm"}
+                  fontWeight={600}
+                  color={"white"}
+                  bg={"green.400"}
+                  _hover={{
+                    bg: "green.300",
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </NextLink>
+            </>
+          )}
 
-          <NextLink href="/register">
-            <Button
-              display={{ base: "none", md: "inline-flex" }}
-              fontSize={"sm"}
-              fontWeight={600}
-              color={"white"}
-              bg={"green.400"}
-              _hover={{
-                bg: "green.300",
-              }}
-            >
-              Sign Up
-            </Button>
-          </NextLink>
+          {user.isAuthenticated && (
+            <Flex alignItems={"center"}>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                  <IconButton
+                    colorScheme="teal"
+                    aria-label="user profile"
+                    fontSize="20px"
+                    borderRadius="50%"
+                    icon={<FaRegUserCircle />}
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem>
+                    <NextLink href="/profile"> Profile </NextLink>
+                  </MenuItem>
+                  <MenuItem onClick={() => logoutUser()}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
+          )}
         </Stack>
       </Flex>
 
